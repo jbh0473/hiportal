@@ -8,7 +8,7 @@ function updateTimestamp() {
     timestampContainer.textContent = `생성 일시: ${formattedDate}`;
 }
 
-function generateNumbers() {
+function generateSingleSet() {
     const numbers = [];
     while (numbers.length < 6) {
         const randomNumber = Math.floor(Math.random() * 45) + 1;
@@ -17,25 +17,62 @@ function generateNumbers() {
         }
     }
     numbers.sort((a, b) => a - b);
-    return numbers;
+
+    let bonus;
+    do {
+        bonus = Math.floor(Math.random() * 45) + 1;
+    } while (numbers.includes(bonus));
+
+    return { main: numbers, bonus: bonus };
 }
 
-function displayNumbers(numbers) {
+function displaySets(sets) {
     numbersContainer.innerHTML = '';
-    numbers.forEach(number => {
-        const numberDiv = document.createElement('div');
-        numberDiv.classList.add('number');
-        numberDiv.textContent = number;
-        numbersContainer.appendChild(numberDiv);
+    
+    sets.forEach((set, index) => {
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('number-row');
+
+        // Sequential Number
+        const indexDiv = document.createElement('div');
+        indexDiv.classList.add('row-index');
+        indexDiv.textContent = index + 1;
+        rowDiv.appendChild(indexDiv);
+
+        // Main Numbers
+        set.main.forEach(num => {
+            const numDiv = document.createElement('div');
+            numDiv.classList.add('number');
+            numDiv.textContent = num;
+            rowDiv.appendChild(numDiv);
+        });
+
+        // Plus Sign
+        const plusDiv = document.createElement('div');
+        plusDiv.classList.add('bonus-divider');
+        plusDiv.textContent = '+';
+        rowDiv.appendChild(plusDiv);
+
+        // Bonus Number
+        const bonusDiv = document.createElement('div');
+        bonusDiv.classList.add('number', 'bonus');
+        bonusDiv.textContent = set.bonus;
+        rowDiv.appendChild(bonusDiv);
+
+        numbersContainer.appendChild(rowDiv);
     });
 }
 
-generateBtn.addEventListener('click', () => {
-    const newNumbers = generateNumbers();
-    displayNumbers(newNumbers);
+function generateAndDisplay() {
+    const sets = [];
+    for (let i = 0; i < 5; i++) {
+        sets.push(generateSingleSet());
+    }
+    displaySets(sets);
     updateTimestamp();
-});
+}
+
+generateBtn.addEventListener('click', generateAndDisplay);
 
 // Initial display
-displayNumbers(generateNumbers());
-updateTimestamp();
+generateAndDisplay();
