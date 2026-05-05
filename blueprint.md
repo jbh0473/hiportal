@@ -12,6 +12,7 @@ This project is a simple web application that generates lotto numbers.
 *   **Sequential Numbering:** Each set is numbered (1-5) for easy reference.
 *   **Dynamic Display:** The generated numbers are dynamically displayed on the page without requiring a page reload.
 *   **Timestamp Display:** The current date and time are displayed whenever a new set of numbers is generated.
+*   **Google Theme:** A clean, Material Design-inspired interface utilizing Google's signature color palette (Blue, Red, Yellow, Green), pill-shaped buttons, and card layouts.
 
 ## Deployment
 The application is deployed and available at:

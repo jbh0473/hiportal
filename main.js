@@ -40,9 +40,10 @@ function displaySets(sets) {
         rowDiv.appendChild(indexDiv);
 
         // Main Numbers
-        set.main.forEach(num => {
+        set.main.forEach((num, numIndex) => {
             const numDiv = document.createElement('div');
             numDiv.classList.add('number');
+            numDiv.classList.add(`c${numIndex % 4}`); // Cycle through 4 Google colors
             numDiv.textContent = num;
             rowDiv.appendChild(numDiv);
         });
